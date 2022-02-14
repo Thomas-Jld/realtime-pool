@@ -1,0 +1,12 @@
+[Unit]
+Description=Gunicorn instance to serve pool
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/Projects/pool
+ExecStart=/usr/bin/python3 -m gunicorn --worker-class eventlet -w 1 --bind unix:pool.sock -m 007 main:app
+
+[Install]
+WantedBy=multi-user.target
